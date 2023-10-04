@@ -1,3 +1,4 @@
+import Navbar from "@/components/navbar"
 import db from "@/lib/prismadb"
 import { auth } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
@@ -27,7 +28,7 @@ if(!store) redirect('/')
 
 return (
     <>
-<div>navbar</div>
+<Navbar />
 {children}
     </>
 )
