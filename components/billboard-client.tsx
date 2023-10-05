@@ -6,10 +6,15 @@ import { Button } from './ui/button'
 import { Plus } from 'lucide-react'
 import { Separator } from './ui/separator'
 import { useParams, useRouter } from 'next/navigation'
+import { Billboard } from '@prisma/client'
+import { BillboardColumn, columns } from './columns'
+import { DataTable } from './data-table'
 
-type Props = {}
+type Props = {
+  items:BillboardColumn[] | []
+}
 
-const BillboardClient = (props: Props) => {
+const BillboardClient = ({items}: Props) => {
 
 const router = useRouter()
 const params = useParams()
@@ -18,7 +23,7 @@ const params = useParams()
     <>
     <div className='flex items-center justify-between'>
         <Heading 
-        title='Billboards(0)'
+        title={`Billboards(${items?.length})`}
         description='Manage billboards for your store'
         />
         <Button
@@ -29,6 +34,7 @@ const params = useParams()
         </Button>
     </div>
     <Separator orientation="horizontal" className='my-5' />
+    <DataTable searchKey='label' columns={columns} data={items}  />
     </>
   )
 }

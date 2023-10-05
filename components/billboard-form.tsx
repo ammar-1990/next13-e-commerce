@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 import {
     Form,
@@ -25,8 +25,8 @@ import {
   import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils";
 import AlertModal from "./modals/alert-modal";
-import ApiAlert from "./api-alert";
-import { useOrigin } from "@/hooks/use-origin";
+
+
 import ImageUpload from "./image-upload";
 
 type Props = {
@@ -45,7 +45,7 @@ const BillboardForm = ({initialData}: Props) => {
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    const origin = useOrigin()
+
 
 
     const title = initialData ? 'Edit bullboard' : 'Create billboard'
@@ -60,13 +60,20 @@ const BillboardForm = ({initialData}: Props) => {
       })
 
       const router = useRouter()
+      const params = useParams()
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
   
         try {
-            await axios.patch(`/api/stores/${initialData?.id}`,values)
+            if(initialData) {
+                await axios.patch(`/api/${params.storeId}/billboards/${initialData.id}`,values)
+            }else{
+                await axios.post(`/api/${params.storeId}/billboards`,values)
+            }
+            
             router.refresh()
-            toast.success('Store updated')
+            router.push(`/${params.storeId}/billboards`)
+            toast.success(toastMessage)
         } catch (error) {
             console.log(error)
             toast.error('Something went wrong')
@@ -80,13 +87,13 @@ const nameError = form.getFieldState('label').error
 const onDelete = async()=>{
   try {
     setLoading(true)
-    await axios.delete(`/api/stores/${initialData?.id}`)
+    await axios.delete(`/api/${params.storeId}/billboards/${initialData?.id}`)
     toast.success('Deleted successfully')
     router.refresh()
-    router.push('/')
+    router.push(`/${params.storeId}/billboards`)
   } catch (error) {
     console.log(error)
-    toast.error('Make sure to delete all products and categories')
+    toast.error("Make sure to delete all billboard's  categories")
     
   }finally{
 setLoading(false)
@@ -157,7 +164,8 @@ setOpen(false)
         <Button disabled={isLoading} type="submit">{action}</Button>
       </form>
     </Form>
-    <ApiAlert title="NEXT_PUBLIC_API_URL" description={ origin ? `${origin}/api/${initialData?.id}` : '...'} variant="public" />
+ 
+
 
     </>
   );
