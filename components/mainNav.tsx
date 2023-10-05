@@ -15,6 +15,11 @@ const {storeId} = useParams()
 const routes = [
 
     {
+        href:`/${storeId}`,
+        label:'Overview',
+        active: pathname === `/${storeId}`
+    },
+    {
         href:`/${storeId}/settings`,
         label:'Settings',
         active: pathname === `/${storeId}/settings`
