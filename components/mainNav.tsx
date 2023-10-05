@@ -20,6 +20,11 @@ const routes = [
         active: pathname === `/${storeId}`
     },
     {
+        href:`/${storeId}/billboards`,
+        label:'Billboards',
+        active: pathname === `/${storeId}/billboards`
+    },
+    {
         href:`/${storeId}/settings`,
         label:'Settings',
         active: pathname === `/${storeId}/settings`
