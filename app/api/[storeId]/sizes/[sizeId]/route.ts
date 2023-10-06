@@ -17,7 +17,7 @@ export async function GET(req:Request,{params:{sizeId}}:{params:{sizeId:string}}
 
    
 
-        const size = await db.billboard.findUnique({
+        const size = await db.size.findUnique({
             where:{
                 id:sizeId
             }

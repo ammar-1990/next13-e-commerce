@@ -17,16 +17,16 @@ export async function GET(req: Request,{params:{storeId}}:{params:{storeId:strin
       if(!storeId) return new NextResponse('Store ID is required',{status:400})
       
      
-      const sizes =await db.size.findMany({
+      const colors =await db.color.findMany({
           where:{
              storeId
           }
       })
   
-      return NextResponse.json(sizes)
+      return NextResponse.json(colors)
   
     } catch (error) {
-      console.log("[SIZES_GET]", error);
+      console.log("[COLORS_GET]", error);
       return new NextResponse("internal error", { status: 500 });
     }
   }
@@ -53,7 +53,7 @@ export async function POST(req: Request,{params:{storeId}}:{params:{storeId:stri
 
     if(!store) return new NextResponse('Unauthorized',{status:403})
 
-    const size =await  db.size.create({
+    const color =await  db.color.create({
         data:{
             name,
             value,
@@ -61,10 +61,10 @@ export async function POST(req: Request,{params:{storeId}}:{params:{storeId:stri
         }
     })
 
-    return NextResponse.json(size)
+    return NextResponse.json(color)
 
   } catch (error) {
-    console.log("[SIZE_POST]", error);
+    console.log("[COLOR_POST]", error);
     return new NextResponse("internal error", { status: 500 });
   }
 }
