@@ -1,8 +1,8 @@
 "use client"
 
-import Image from "next/image"
- import CellAction from "./cell-action"
+
 import { ColumnDef } from "@tanstack/react-table"
+import CellActionCategory from "./cell-action-category"
  
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -30,7 +30,7 @@ export const columns: ColumnDef<CategoryColumn>[] = [
  
   {
     id:'actions',
-    cell: ({row}) => <CellAction data={row.original} />
+    cell: ({row}) => <CellActionCategory data={row.original} />
   }
 
 
