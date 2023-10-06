@@ -9,9 +9,10 @@ import { useParams, useRouter } from "next/navigation"
 import { useState } from "react"
 import axios from "axios"
 import AlertModal from "./modals/alert-modal"
+import { CategoryColumn } from "./category-columns"
 
 type Props = {
-    data:BillboardColumn
+    data:BillboardColumn | CategoryColumn
 }
 
 

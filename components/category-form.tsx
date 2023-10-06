@@ -4,7 +4,7 @@ import { Trash } from "lucide-react";
 import Heading from "./heading";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
-import { Billboard } from "@prisma/client";
+import { Billboard, Category } from "@prisma/client";
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
@@ -30,17 +30,17 @@ import AlertModal from "./modals/alert-modal";
 import ImageUpload from "./image-upload";
 
 type Props = {
-    initialData:Billboard | null
+    initialData:Category | null
 };
 
 
 const formSchema = z.object({
-    label: z.string().min(1,{message:'Enter valid label'}),
-    imageUrl:z.string().min(1,{message:'Image is required'})
+    name: z.string().min(1,{message:'Enter valid name'}),
+    billboardId:z.string().min(1,{message:'billboard is required'})
   })
 
 
-const BillboardForm = ({initialData}: Props) => {
+const CategoryForm = ({initialData}: Props) => {
 
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -48,15 +48,15 @@ const BillboardForm = ({initialData}: Props) => {
 
 
 
-    const title = initialData ? 'Edit billboard' : 'Create billboard'
-    const description = initialData ? 'Edit a billboard' : 'Add a new billboard'
-    const toastMessage = initialData ? 'Billboard edited' : 'Billboard added'
+    const title = initialData ? 'Edit category' : 'Create category'
+    const description = initialData ? 'Edit a category' : 'Add a new category'
+    const toastMessage = initialData ? 'Category edited' : 'Category added'
     const action = initialData ?'Save changes' : 'Create'
 
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: initialData || {label:'',imageUrl:''}
+        defaultValues: initialData || {name:'',billboardId:''}
       })
 
       const router = useRouter()
@@ -82,7 +82,8 @@ const BillboardForm = ({initialData}: Props) => {
       }
 
       const isLoading = form.formState.isSubmitting
-const nameError = form.getFieldState('label').error
+const nameError = form.getFieldState('name').error
+const billboardError = form.getFieldState('billboardId').error
 
 const onDelete = async()=>{
   try {
@@ -120,38 +121,20 @@ setOpen(false)
 
 <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-      <FormField
-          control={form.control}
-          name="imageUrl"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Background image</FormLabel>
-              <FormControl>
-               <ImageUpload
-               value={field.value ? [field.value] : []}
-               disabled={loading}
-               onChange={(url)=>field.onChange(url)}
-               onRemove={()=>field.onChange('')}
-               />
-              </FormControl>
-             
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      
         <div className="grid grid-cols-3 w-full">
         <FormField
           control={form.control}
-          name="label"
+          name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Label</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input 
                 autoComplete="off"
                 className={cn("outline-none focus-visible:ring-1 focus-visible:ring-offset-1 ",nameError && 'border-rose-500')}
                 disabled={isLoading}
-                placeholder="Billboard label" {...field} />
+                placeholder="Category name" {...field} />
               </FormControl>
              
               <FormMessage />
@@ -171,4 +154,4 @@ setOpen(false)
   );
 };
 
-export default BillboardForm;
+export default CategoryForm;
