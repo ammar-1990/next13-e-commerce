@@ -23,7 +23,7 @@ export const columns: ColumnDef<ColorColumn>[] = [
   {
     accessorKey: "value",
     header: "Value",
-    cell: ({row})=><div className="flex items-center justify-between w-full md:w-[40%]">{row.original.name} <div className="p-4 rounded-full border " style={{backgroundColor:`${row.original.value}`}} /></div>
+    cell: ({row})=><div className="flex items-center justify-between w-full md:w-[40%]">{row.original.value} <div className="p-4 rounded-full border " style={{backgroundColor:`${row.original.value}`}} /></div>
   },
   {
     accessorKey: "createdAt",
