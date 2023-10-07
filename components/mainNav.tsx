@@ -40,6 +40,11 @@ const routes = [
         active: pathname === `/${storeId}/colors`
     },
     {
+        href:`/${storeId}/products`,
+        label:'Products',
+        active: pathname === `/${storeId}/products`
+    },
+    {
         href:`/${storeId}/settings`,
         label:'Settings',
         active: pathname === `/${storeId}/settings`
