@@ -30,7 +30,7 @@ const ImageUpload = ({ disabled, onChange, onRemove, value }: Props) => {
     <div className="flex items-center mb-4 gap-5">
         {value.map((url)=><div key={url} className="relative w-[200px] aspect-square overflow-hidden ">
 
-            <Button className="absolute top-2 right-2 z-20"
+            <Button className="absolute top-1 right-1 z-20"
             variant={'destructive'}
             size={'icon'}
             onClick={()=>onRemove(url)}
@@ -41,7 +41,7 @@ const ImageUpload = ({ disabled, onChange, onRemove, value }: Props) => {
             alt="uploaded-image"
             src={url}
             fill
-            className="object-contain"
+            className="object-contain rounded-md"
             />
         </div>)}
 

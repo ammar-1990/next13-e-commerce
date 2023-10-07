@@ -36,7 +36,7 @@ const params = useParams()
         </Button>
     </div>
     <Separator orientation="horizontal" className='my-5' />
-    <DataTable searchKey='category' columns={columns} data={items}  />
+    <DataTable  searchKey='category' columns={columns} data={items}  />
     <Heading title='API' description='API calls for products' />
     <Separator className='my-3' />
     <ApiList entityName='products' entityIdName='productId'/>
