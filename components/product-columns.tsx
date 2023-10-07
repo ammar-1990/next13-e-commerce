@@ -28,8 +28,8 @@ export const columns: ColumnDef<ProductColumn>[] = [
     header: "Price",
   },
   {
-    accessorKey: "isArchieved",
-    header: "Archieved",
+    accessorKey: "isArchived",
+    header: "Archived",
   },
   {
     accessorKey: "isFeatured",
@@ -40,9 +40,9 @@ export const columns: ColumnDef<ProductColumn>[] = [
     header: "Size",
   },
   {
-    accessorKey: "color",
+    
     header: "Color",
-    cell: ({row})=><div className="p-2 rounded-full border" style={{backgroundColor:row.original.color}}></div>
+    cell: ({row})=><div className="p-2 rounded-full border h-3 w-3" style={{backgroundColor:row.original.color}}></div>
   },
   {
     accessorKey: "category",

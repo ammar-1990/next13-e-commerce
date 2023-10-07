@@ -4,7 +4,7 @@ import { Trash } from "lucide-react";
 import Heading from "./heading";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
-import { Billboard, Category, Color, Image, Product, Size } from "@prisma/client";
+import {  Category, Color, Image, Product, Size } from "@prisma/client";
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
@@ -17,6 +17,8 @@ import {
     Form,
     FormControl,
 
+    FormDescription,
+
     FormField,
     FormItem,
     FormLabel,
@@ -28,6 +30,8 @@ import AlertModal from "./modals/alert-modal";
 
 
 import ImageUpload from "./image-upload";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { Checkbox } from "./ui/checkbox";
 
 type Props = {
     initialData:Product & {images : Image[]} | null,
@@ -39,7 +43,7 @@ type Props = {
 
 const formSchema = z.object({
     name: z.string().min(1,{message:'Enter valid name'}),
-    images:z.object({url:z.string()}).array(),
+    images:z.object({url:z.string()}).array().min(1),
     price:z.coerce.number().min(1),
     isFeatured:z.boolean().default(false).optional(),
     isArchived:z.boolean().default(false).optional(),
@@ -49,7 +53,7 @@ const formSchema = z.object({
   })
 
 
-const ProductForm = ({initialData}: Props) => {
+const ProductForm = ({initialData,sizes,categories,colors}: Props) => {
 
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -162,13 +166,13 @@ setOpen(false)
             </FormItem>
           )}
         />
-        <div className="grid grid-cols-3 w-full gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-3 ">
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Label</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input 
                 autoComplete="off"
@@ -178,6 +182,209 @@ setOpen(false)
               </FormControl>
              
               <FormMessage />
+            </FormItem>
+            
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="price"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Price</FormLabel>
+              <FormControl>
+                <Input 
+                type="number"
+                autoComplete="off"
+                className={cn("outline-none focus-visible:ring-1 focus-visible:ring-offset-1 ",priceError && 'border-rose-500')}
+                disabled={isLoading}
+                placeholder="9.99$" {...field} />
+              </FormControl>
+             
+              <FormMessage />
+            </FormItem>
+            
+          )}
+        />
+
+<FormField
+              control={form.control}
+              name="sizeId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Sizes</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger
+                        className={cn(
+                          ` outline-none  
+                  focus-within:ring-0 
+                  focus-within:ring-offset-0 focus-visible:ring-1 
+                  focus-visible:ring-offset-1 focus:ring-1
+                   focus:ring-offset-1`,
+                        sizeError && "border-rose-500"
+                        )}
+                      >
+                        <SelectValue
+                          placeholder="Select a size"
+                          defaultValue={field.value}
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {sizes.map((size) => (
+                        <SelectItem
+                          className="cursor-pointer"
+                          key={size.id}
+                          value={size.id}
+                        >
+                          <div className="flex items-center  justify-between w-40 md:w-60 ">
+                          {size.name} <span>{size.value}</span> 
+                          </div>
+                         
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+<FormField
+              control={form.control}
+              name="colorId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Colors</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger
+                        className={cn(
+                          ` outline-none  
+                  focus-within:ring-0 
+                  focus-within:ring-offset-0 focus-visible:ring-1 
+                  focus-visible:ring-offset-1 focus:ring-1
+                   focus:ring-offset-1`,
+                        colorError && "border-rose-500"
+                        )}
+                      >
+                        <SelectValue
+                          placeholder="Select a color"
+                          defaultValue={field.value}
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {colors.map((color) => (
+                        <SelectItem
+                          className="cursor-pointer w-full"
+                          key={color.id}
+                          value={color.id}
+                        >
+                          <div className="flex items-center justify-between w-40 md:w-60">
+                          {color.name} <div className="p-2 rounded-full " style={{backgroundColor:color.value}}></div>
+                          </div>
+                          
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+<FormField
+              control={form.control}
+              name="categoryId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Categories</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger
+                        className={cn(
+                          ` outline-none  
+                  focus-within:ring-0 
+                  focus-within:ring-offset-0 focus-visible:ring-1 
+                  focus-visible:ring-offset-1 focus:ring-1
+                   focus:ring-offset-1`,
+                        categoryError && "border-rose-500"
+                        )}
+                      >
+                        <SelectValue
+                          placeholder="Select a category"
+                          defaultValue={field.value}
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem
+                          className="cursor-pointer"
+                          key={category.id}
+                          value={category.id}
+                        >
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+<FormField
+          control={form.control}
+          name="isFeatured"
+          render={({ field }) => (
+            <FormItem className="flex flex-row  space-x-3 space-y-0 rounded-md border p-4 ">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none ">
+              <FormLabel>Featured</FormLabel>
+                <FormDescription>
+                  This product will appear on the homepage.
+             
+                </FormDescription>
+              </div>
+            </FormItem>
+          )}
+        />
+<FormField
+          control={form.control}
+          name="isArchived"
+          render={({ field }) => (
+            <FormItem className="flex flex-row  space-x-3 space-y-0 rounded-md border p-4 ">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+              <FormLabel>Archived</FormLabel>
+                <FormDescription>
+                  This product will not appear anywhere in the store.
+             
+                </FormDescription>
+              </div>
             </FormItem>
           )}
         />

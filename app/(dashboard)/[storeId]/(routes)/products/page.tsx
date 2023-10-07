@@ -31,7 +31,7 @@ price:formatter.format(item.price.toNumber()),
 isArchived:item.isArchived,
 isFeatured:item.isFeatured,
 size:item.size.name,
-color:item.size.value,
+color:item.color.value,
 category:item.category.name,
 createdAt:format(item.createdAt, 'MMMM do, yyyy')
 }))
