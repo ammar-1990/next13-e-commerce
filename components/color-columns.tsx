@@ -3,37 +3,53 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 
-import CellActionColor from "./cell-action-color"
+
  
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type ColorColumn = {
+export type OrderColumn = {
   id: string,
-  name: string,
-  value:string,
+  phone: string,
+  address:string,
+  isPaid:boolean,
+  products:string,
+  totalPrice:string,
  createdAt:string,
  
 }
  
-export const columns: ColumnDef<ColorColumn>[] = [
+export const columns: ColumnDef<OrderColumn>[] = [
   {
-    accessorKey: "name",
-    header: "Name",
+    accessorKey: "products",
+    header: "Products",
+
   },
   {
-    accessorKey: "value",
-    header: "Value",
-    cell: ({row})=><div className="flex items-center justify-between w-full md:w-[40%]">{row.original.value} <div className="p-4 rounded-full border " style={{backgroundColor:`${row.original.value}`}} /></div>
+    accessorKey: "phone",
+    header: "Phone",
   },
+  {
+    accessorKey: "address",
+    header: "Address",
+
+  },
+  {
+    accessorKey: "totalPrice",
+    header: "Total price",
+
+  },
+  {
+    accessorKey: "isPaid",
+    header: "Paid",
+
+  },
+  
   {
     accessorKey: "createdAt",
     header: "Date",
   },
  
-  {
-    id:'actions',
-    cell: ({row}) => <CellActionColor data={row.original} />
-  }
+
 
 
  
