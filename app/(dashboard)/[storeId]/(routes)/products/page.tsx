@@ -19,7 +19,8 @@ storeId
   include:{
     size:true,
     category:true,
-    color:true
+    color:true,
+    images:true
   },
   orderBy:{createdAt:'desc'}
 })
@@ -33,7 +34,8 @@ isFeatured:item.isFeatured,
 size:item.size.name,
 color:item.color.value,
 category:item.category.name,
-createdAt:format(item.createdAt, 'MMMM do, yyyy')
+createdAt:format(item.createdAt, 'MMMM do, yyyy'),
+image:item.images[0].url
 }))
 
   return (
