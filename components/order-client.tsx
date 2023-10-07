@@ -8,7 +8,7 @@ import { useParams, useRouter } from 'next/navigation'
 
 import { DataTable } from './data-table'
 
-import { OrderColumn,columns } from './color-columns'
+import { OrderColumn,columns } from './order-columns'
 
 type Props = {
   items:OrderColumn[] | []
