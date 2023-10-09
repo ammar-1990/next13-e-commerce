@@ -8,7 +8,7 @@ import Link from 'next/link'
 
 type Props = React.HTMLAttributes<HTMLElement>
 
-const MainNav = ({className, ...props}: Props) => {
+const MainNav = ({className,onClick=()=>{}, ...props}: Props) => {
 const pathname = usePathname()
 const {storeId} = useParams()
 
@@ -61,6 +61,7 @@ const routes = [
     <nav className={cn('flex items-center gap-x-4 lg:gap-x-6',className)}>
         {routes.map((route)=>(
             <Link
+            onClick={onClick}
             key={route.href}
             href={route.href}
             className={cn('text-sm font-medium transition-colors hover:text-primary',
