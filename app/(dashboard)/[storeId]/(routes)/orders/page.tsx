@@ -3,7 +3,7 @@ import { BillboardColumn } from '@/components/columns'
 import db from '@/lib/prismadb'
 import React from 'react'
 import { format } from 'date-fns'
-import { OrderColumn } from '@/components/color-columns'
+import { OrderColumn } from '@/components/order-columns'
 import OrderClient from '@/components/order-client'
 import { formatter } from '@/lib/utils'
 
