@@ -20,6 +20,9 @@ export async function GET(req:Request,{params:{categoryId}}:{params:{categoryId:
         const category = await db.category.findUnique({
             where:{
                 id:categoryId
+            },
+            include:{
+                billboard:true
             }
         })
 
