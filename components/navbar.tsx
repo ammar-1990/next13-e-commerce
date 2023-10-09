@@ -4,6 +4,9 @@ import MainNav from './mainNav'
 import StoreSwitcher from './store-switcher'
 import db from '@/lib/prismadb'
 import { redirect } from 'next/navigation'
+import { ModeToggle } from './mode-toggle'
+import MySheet from './sheet'
+
 
 type Props = {}
 
@@ -20,9 +23,14 @@ userId
   return (
     <div className='border-b'>
         <div className='h-16 flex items-center px-4'>
+            
+            <div className=' items-center gap-x-4 hidden lg:flex'>
             <StoreSwitcher items={stores}/>
            <MainNav className='mx-6' />
+            </div>
+          <MySheet items={stores} />
             <div className='flex ml-auto items-center gap-x-4'>
+                <ModeToggle />
                 <UserButton afterSignOutUrl='/' />
             </div>
 

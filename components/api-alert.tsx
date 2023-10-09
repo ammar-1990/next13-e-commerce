@@ -34,7 +34,7 @@ const onCopy = ()=>{
         {title}
         <Badge variant={variantMap[variant]}>{textMap[variant]}</Badge>
       </AlertTitle>
-      <AlertDescription className="mt-4 flex items-center justify-between">
+      <AlertDescription className="mt-4 flex flex-col sm:flex-row gap-3 items-center justify-between">
         <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">{description}</code>
         <Button title="copy" variant={'outline'} size={'icon'} onClick={onCopy}>
             <Copy className="w-4 h-4" />

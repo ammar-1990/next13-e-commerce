@@ -33,7 +33,7 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "image",
     header: "Image",
-    cell: ({row})=><div className="w-10 h-10 rounded-full relative"><Image fill src={row.original.image} alt="product-image" /></div>
+    cell: ({row})=><div className="w-10 h-10 rounded-full relative bg-white ring-1 ring-offset-4 ring-neutral-200 overflow-hidden"><Image className="object-contain" fill src={row.original.image} alt="product-image" /></div>
   },
   {
     accessorKey: "isArchived",
