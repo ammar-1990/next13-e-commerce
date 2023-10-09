@@ -45,7 +45,7 @@ export async function PATCH(req:Request,{params:{storeId,billboardId}}:{params:{
         if(!storeId) return new NextResponse('Store ID is required',{status:400})
         if(!billboardId) return new NextResponse('Billboard ID is required',{status:400})
 
-        const { label, imageUrl } =await req.json()
+        const { label, imageUrl ,isFeatured} =await req.json()
         if(!label)  return new NextResponse('Label is required',{status:400})
         if(!imageUrl)  return new NextResponse('Image is required',{status:400})
 
@@ -57,13 +57,24 @@ export async function PATCH(req:Request,{params:{storeId,billboardId}}:{params:{
         }) 
     
         if(!store) return new NextResponse('Unauthorized',{status:403})
+        if(isFeatured) {
+
+            await db.billboard.updateMany({
+              where:{
+                storeId
+              },
+              data:{
+                isFeatured:false
+              }
+            })
+          }
 
         const billboard = await db.billboard.updateMany({
             where:{
                 id:billboardId
             },
             data:{
-                label,imageUrl
+                label,imageUrl,isFeatured
             }
         })
 

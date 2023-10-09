@@ -17,6 +17,8 @@ import {
     Form,
     FormControl,
 
+    FormDescription,
+
     FormField,
     FormItem,
     FormLabel,
@@ -28,6 +30,8 @@ import AlertModal from "./modals/alert-modal";
 
 
 import ImageUpload from "./image-upload";
+import { Select, SelectTrigger } from "./ui/select";
+import { Checkbox } from "./ui/checkbox";
 
 type Props = {
     initialData:Billboard | null
@@ -36,7 +40,8 @@ type Props = {
 
 const formSchema = z.object({
     label: z.string().min(1,{message:'Enter valid label'}),
-    imageUrl:z.string().min(1,{message:'Image is required'})
+    imageUrl:z.string().min(1,{message:'Image is required'}),
+    isFeatured:z.boolean().default(false).optional()
   })
 
 
@@ -56,7 +61,7 @@ const BillboardForm = ({initialData}: Props) => {
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: initialData || {label:'',imageUrl:''}
+        defaultValues: initialData || {label:'',imageUrl:'', isFeatured:false}
       })
 
       const router = useRouter()
@@ -139,7 +144,7 @@ setOpen(false)
             </FormItem>
           )}
         />
-        <div className="grid grid-cols-3 w-full">
+        <div className="grid grid-cols-3 w-full gap-3">
         <FormField
           control={form.control}
           name="label"
@@ -155,6 +160,27 @@ setOpen(false)
               </FormControl>
              
               <FormMessage />
+            </FormItem>
+          )}
+        />
+      <FormField
+          control={form.control}
+          name="isFeatured"
+          render={({ field }) => (
+            <FormItem className="flex flex-row  space-x-3 space-y-0 rounded-md border p-4 ">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none ">
+              <FormLabel>Featured</FormLabel>
+                <FormDescription>
+                  This billboard will appear in main page.
+             
+                </FormDescription>
+              </div>
             </FormItem>
           )}
         />

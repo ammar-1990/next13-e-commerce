@@ -20,6 +20,7 @@ const formattedNillboards:BillboardColumn[] = billboards.map((item)=>({
 id:item.id,
 label:item.label,
 imageUrl:item.imageUrl,
+isFeatured:item.isFeatured,
 createdAt:format(item.createdAt, 'MMMM do, yyyy')
 }))
 

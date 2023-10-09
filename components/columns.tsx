@@ -10,13 +10,18 @@ export type BillboardColumn = {
   id: string,
   label: string,
  createdAt:string,
- imageUrl:string
+ imageUrl:string,
+ isFeatured:boolean
 }
  
 export const columns: ColumnDef<BillboardColumn>[] = [
   {
     accessorKey: "label",
     header: "Label",
+  },
+  {
+    accessorKey: "isFeatured",
+    header: "Featured",
   },
   {
     accessorKey: "createdAt",
