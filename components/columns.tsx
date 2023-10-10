@@ -30,7 +30,7 @@ export const columns: ColumnDef<BillboardColumn>[] = [
   {
     
     header: "Image",
-    cell: ({row})=><div className="w-8 h-10 rounded-full relative  "><Image className="object-contain" src={row.original.imageUrl} alt="billboard-image" fill /></div>
+    cell: ({row})=><div className="w-10 h-10 rounded-full relative bg-white ring-1 ring-offset-4 ring-neutral-200 overflow-hidden"><Image className="object-contain " src={row.original.imageUrl} alt="billboard-image" fill /></div>
   },
   {
     id:'actions',
