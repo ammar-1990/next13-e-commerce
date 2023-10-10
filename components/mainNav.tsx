@@ -61,7 +61,7 @@ const routes = [
     <nav className={cn('flex items-center gap-x-4 lg:gap-x-6',className)}>
         {routes.map((route)=>(
             <button
-            onClick={(e)=>{onClick(e); myRoute.push(route.href)}}
+            onClick={(e)=>{onClick(e); myRoute.push(route.href);myRoute.refresh()}}
             key={route.href}
             
             className={cn('text-sm font-medium transition-colors hover:text-primary',
