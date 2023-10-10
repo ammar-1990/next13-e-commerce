@@ -82,7 +82,7 @@ const StoreSwitcher = ({ items = [], className }: Props) => {
               {formattedItems.map((item) => (
                 <CommandItem
                   key={item.value}
-                  onSelect={() => { }}
+                  onSelect={()=>onStoreSelect(item)}
                   className="text-sm flex items-center justify-between cursor-pointer"
                 >
                   <StoreIcon className="w-4 h-4" />
