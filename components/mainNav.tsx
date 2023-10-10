@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils'
 
-import {usePathname, useParams} from 'next/navigation'
+import {usePathname, useParams, useRouter} from 'next/navigation'
 import Link from 'next/link'
 
 
@@ -11,7 +11,7 @@ type Props = React.HTMLAttributes<HTMLElement>
 const MainNav = ({className,onClick=()=>{}, ...props}: Props) => {
 const pathname = usePathname()
 const {storeId} = useParams()
-
+const myRoute = useRouter()
 const routes = [
 
     {
@@ -60,15 +60,15 @@ const routes = [
   return (
     <nav className={cn('flex items-center gap-x-4 lg:gap-x-6',className)}>
         {routes.map((route)=>(
-            <Link
-            onClick={onClick}
+            <button
+            onClick={(e)=>{onClick(e); myRoute.push(route.href)}}
             key={route.href}
-            href={route.href}
+            
             className={cn('text-sm font-medium transition-colors hover:text-primary',
             route.active ? 'text-black dark:text-white': 'text-muted-foreground')}
             >
                 {route.label}
-            </Link>
+            </button>
         ))}
     </nav>
   )
