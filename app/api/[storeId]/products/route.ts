@@ -59,11 +59,12 @@ export async function POST(req: Request,{params:{storeId}}:{params:{storeId:stri
     const { userId } = auth();
     if (!userId) return new NextResponse("Unauthenticated", { status: 401 });
 
-    const { name, price, isFeatured, isArchived, sizeId,colorId,categoryId,images } = await req.json();
+    const { name, price, isFeatured,describtion, isArchived, sizeId,colorId,categoryId,images } = await req.json();
 
     if(!name) return new NextResponse('Name is required',{status:400})
 
     if(!price) return new NextResponse('Price  is required',{status:400})
+    if(!describtion) return new NextResponse('describtion  is required',{status:400})
     if(!images || !images.length)  return new NextResponse('Images  is required',{status:400})
 
     if(!colorId) return new NextResponse('Color ID  is required',{status:400})
@@ -85,6 +86,7 @@ export async function POST(req: Request,{params:{storeId}}:{params:{storeId:stri
         data:{
             name,
             price,
+            describtion,
             storeId,
             categoryId,
             isFeatured,

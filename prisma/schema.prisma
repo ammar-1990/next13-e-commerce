@@ -110,6 +110,7 @@ model Product {
   color              Color @relation(fields: [colorId],references: [id])
   name                String
   price              Decimal
+  describtion         String @default(" ") 
   isFeatured          Boolean @default(false)
   isArchived          Boolean @default(false)
   images              Image[]

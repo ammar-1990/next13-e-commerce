@@ -32,6 +32,7 @@ import AlertModal from "./modals/alert-modal";
 import ImageUpload from "./image-upload";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Checkbox } from "./ui/checkbox";
+import { Textarea } from "./ui/textarea";
 
 type Props = {
     initialData:Product & {images : Image[]} | null,
@@ -45,6 +46,7 @@ const formSchema = z.object({
     name: z.string().min(1,{message:'Enter valid name'}),
     images:z.object({url:z.string()}).array().min(1),
     price:z.coerce.number().min(1),
+    describtion:z.string().min(3,{message:"Description is  required"}),
     isFeatured:z.boolean().default(false).optional(),
     isArchived:z.boolean().default(false).optional(),
     sizeId:z.string().min(1),
@@ -73,6 +75,7 @@ const ProductForm = ({initialData,sizes,categories,colors}: Props) => {
           name:'',
           images:[],
           price:0,
+          describtion:'',
           isArchived:false,
           isFeatured:false,
           sizeId:'',
@@ -106,6 +109,7 @@ const ProductForm = ({initialData,sizes,categories,colors}: Props) => {
       const isLoading = form.formState.isSubmitting
 const nameError = form.getFieldState('name').error
 const priceError = form.getFieldState('price').error
+const descriptionError = form.getFieldState('describtion').error
 const sizeError = form.getFieldState('sizeId').error
 const colorError = form.getFieldState('colorId').error
 const categoryError = form.getFieldState('categoryId').error
@@ -199,6 +203,28 @@ setOpen(false)
                 className={cn("outline-none focus-visible:ring-1 focus-visible:ring-offset-1 ",priceError && 'border-rose-500')}
                 disabled={isLoading}
                 placeholder="9.99$" {...field} />
+              </FormControl>
+             
+              <FormMessage />
+            </FormItem>
+            
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="describtion"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Describtion</FormLabel>
+              <FormControl>
+              <Textarea
+                 autoComplete="off"
+                 className={cn("outline-none focus-visible:ring-1 resize-none focus-visible:ring-offset-1 ",descriptionError && 'border-rose-500')}
+                 disabled={isLoading}
+                 placeholder="Describe your product"
+                 {...field}
+                />
+              
               </FormControl>
              
               <FormMessage />

@@ -11,6 +11,7 @@ export type ProductColumn = {
   id: string,
   name: string,
   price:string,
+  describtion:string,
  createdAt:string,
 isArchived:boolean,
 isFeatured:boolean,
@@ -29,6 +30,11 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "price",
     header: "Price",
+  },
+  {
+    accessorKey: "describtion",
+    header: "Describtion",
+    cell: ({row})=><p  className="text-xs line-clamp-2  ">{row.original.describtion}</p>
   },
   {
     accessorKey: "image",
